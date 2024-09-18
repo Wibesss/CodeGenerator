@@ -1,3 +1,5 @@
 /.venv
 /repos
 /token.txt
+/pyrightconfig.json
+/python_code_text.txt
