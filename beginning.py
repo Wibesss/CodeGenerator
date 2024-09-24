@@ -10,7 +10,7 @@ init(autoreset=True)
 end_time = datetime.now(timezone.utc)
 start_time = end_time - timedelta(days=1)
 
-with open("token.txt", "r") as file:
+with open("github_token.txt", "r") as file:
     ACCESS_TOKEN = file.read().strip()
 
 g = Github(ACCESS_TOKEN)

@@ -1,5 +1,5 @@
 /.venv
 /repos
-/token.txt
+/github_token.txt
 /pyrightconfig.json
 /python_code_text.txt
