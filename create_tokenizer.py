@@ -1,24 +1,40 @@
-from tokenizers import Tokenizer, models, pre_tokenizers, decoders, trainers, processors
+from tokenizers.implementations import ByteLevelBPETokenizer
 
-# Initialize a tokenizer
-tokenizer = Tokenizer(models.BPE())
+from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
 
-# Customize pre-tokenization and decoding
-tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=True)
-tokenizer.decoder = decoders.ByteLevel()
-tokenizer.post_processor = processors.ByteLevel(trim_offsets=True)
+TRAN_BASE = False
 
-# And then train
-trainer = trainers.BpeTrainer(
-    vocab_size = 2000,
-    min_frequency=2,
-    initial_alphabet=pre_tokenizers.ByteLevel.alphabet()
-)
-tokenizer.train([
-    "./path/to/dataset/1.txt",
-    "./path/to/dataset/2.txt",
-    "./path/to/dataset/3.txt"
-], trainer=trainer)
+paths = ["python_code_text.txt"]
 
-# And Save it
-tokenizer.save("byte-level-bpe.tokenizer.json", pretty=True)
+if TRAN_BASE:
+    tokenizer = ByteLevelBPETokenizer()
+    
+    tokenizer.train(files = paths, vocab_size=52_000, min_frequency = 2 ,special_tokens = [
+        "<s>",
+        "<pad>",
+        "</s>",
+        "<unk>",
+        "<mask>",
+    ])
+    
+    tokenizer.save_model("tokenizer")
+    
+inp = 'print("Hello World!")'
+
+tokenizer = GPT2Tokenizer.from_pretrained('tokenizer')
+
+tokenizer.add_special_tokens({
+    "eos_token" : "</s>",
+    "bos_token" : "<s>",
+    "unk_token" : "<unk>",
+    "pad_token" : "<pad>",
+    "mask_token" : "<mask>",
+})
+
+t = tokenizer.encode(inp)
+
+print(t)
+
+print(tokenizer.decode(t, clean_up_tokenization_spaces=False))
+
+

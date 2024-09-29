@@ -1,7 +1,6 @@
 import os
 import subprocess
-from colorama import Fore, Style, init
-import time
+from colorama import Fore, init
 
 init(autoreset=True)
 
