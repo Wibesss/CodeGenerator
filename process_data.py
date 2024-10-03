@@ -17,22 +17,17 @@ for dirpath, dirnames, filenames in os.walk("repos"):
 
 print(f"Total files found: {len(full_paths)}")
 
-counter = 5
-
-def format_file_with_black(file_path):
-    try:
-        subprocess.run(['black', file_path], check=True)
-        print(Fore.GREEN + f"Formatted file: {file_path} using Black")
-    except subprocess.CalledProcessError as e:
-        print(Fore.RED + f"Black formatting failed for {file_path}: {e}")
+counter = 0
 
 with open("python_code_text.txt", "a", encoding="utf-8") as output_file:
     for fpath in full_paths:
         try:
-            format_file_with_black(fpath)
-
             with open(fpath, "r", encoding="utf-8") as intput_file:
                 content = intput_file.read()
+                
+            if len(content) > 1000000:
+                print(Fore.YELLOW + f"Skipping file: {fpath}, Length: {len(content)}")
+                continue
 
             print(Fore.BLUE + f"Processing file: {fpath}, Length: {len(content)}")
 
@@ -40,7 +35,6 @@ with open("python_code_text.txt", "a", encoding="utf-8") as output_file:
 
             if 50 < len(formatted_content) <= MAX_CHAR_LENGTH:
                 output_file.write(formatted_content + "\n")
-                print(formatted_content + "\n")
 
             else:
                 split_content = formatted_content.split(f"{NEWLINECHAR}{NEWLINECHAR}")
@@ -51,24 +45,20 @@ with open("python_code_text.txt", "a", encoding="utf-8") as output_file:
 
                     if MIN_CHAR_LENGTH <= len(substring) <= MAX_CHAR_LENGTH:
                         output_file.write(substring + "\n")
-                        print(substring + "\n")
                         substring = ""
                     
                     elif len(substring) > MAX_CHAR_LENGTH:
                         while len(substring) > MAX_CHAR_LENGTH:
                             output_file.write(substring[:MAX_CHAR_LENGTH] + "\n")
-                            print(substring[:MAX_CHAR_LENGTH] + "\n")
                             substring = substring[MAX_CHAR_LENGTH:]
                 
                 if MIN_CHAR_LENGTH <= len(substring) <= MAX_CHAR_LENGTH:
                     output_file.write(substring + "\n")
-                    print(substring + "\n")
 
-            print(Fore.GREEN + f"Processed file: {fpath}")
-            counter -= 1
-            if counter == 0:
-                break
-
+            counter += 1
+            
+            print(Fore.GREEN + f"Processed file number {counter} : {fpath}")
+            
         except UnicodeDecodeError as e:
             print(Fore.RED + f"Error reading {fpath}: {e}")
         except Exception as e:
