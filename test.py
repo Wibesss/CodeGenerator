@@ -1,1 +1,0 @@
-print("""import matplotlib.pyplot as plt\nimport numpy as np\nx = range(5)\ny = np.linspace(0, 1, 5)\nx = np.sin(x)\n\n\nplt.figure()\nplt.plot(x, y)\nplt.show()\n\nfig, ax = plt.subplots()\nax.imshow(x, interpolation='nearest')\n""")

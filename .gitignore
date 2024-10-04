@@ -3,8 +3,9 @@
 /github_token.txt
 /pyrightconfig.json
 /python_code_text.txt
+/test.py
 /pip
-/tokenizer
-/tokenizerr
-/GPyTT
-/GPyT
+/WeakModel
+/WeakTokenizer
+/StrongModel
+/StrongTokenizer

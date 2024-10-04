@@ -95,21 +95,13 @@ def genereate_block_of_code(inp):
     
     sequence = model_out["sequences"][0] # type: ignore
     decoded =decode_newlanes(tokenizer.decode(sequence, skip_special_tokens=True))
-    print(20*"-")
-    print(decoded)
-    print(20*"-")
-    print()
-    print()
-    
         
     return stop_at_repeat(decoded)
 
 @app.route("/generate", methods=["POST"])
 def generate_code():
-    # Get JSON input
     data = request.get_json()
     if data is None:
-        print("No data received")
         return jsonify({"error": "Invalid or missing JSON"}), 400
     
     input_code = data.get("input_code", "")
@@ -118,9 +110,7 @@ def generate_code():
         print("No input code received")
         return jsonify({"error": "Input code is required"}), 400
     
-    print("Input code received:", input_code)  # Debug: print input code
     generated_code = genereate_block_of_code(input_code)
-    print("Generated code:", generated_code)  # Debug: print generated code
     
     return jsonify({"generated_code": generated_code})
 

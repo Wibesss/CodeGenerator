@@ -1,6 +1,5 @@
 from tokenizers.implementations import ByteLevelBPETokenizer
-
-from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
+from transformers import GPT2Tokenizer
 
 TRAN_BASE = True
 
@@ -17,13 +16,9 @@ if TRAN_BASE:
         "<mask>",
     ])
     
-    tokenizer.save_model("tokenizer")
-    
-    
+    tokenizer.save_model("WeakTokenizer")
 
-inp = 'print("Hello World!                 ")'
-
-tokenizer = GPT2Tokenizer.from_pretrained('tokenizer')
+tokenizer = GPT2Tokenizer.from_pretrained('WeakTokenizer')
 
 tokenizer.add_special_tokens({
     "eos_token" : "</s>",
@@ -32,6 +27,8 @@ tokenizer.add_special_tokens({
     "unk_token" : "<unk>",
     "mask_token" : "<mask>",
 })
+
+inp = 'print("Hello World!")'
 
 t = tokenizer.encode(inp)
 

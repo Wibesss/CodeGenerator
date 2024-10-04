@@ -5,7 +5,7 @@ from datasets import load_dataset
 
 paths = ["python_code_text.txt"]
 
-tokenizer = GPT2Tokenizer.from_pretrained('tokenizer')
+tokenizer = GPT2Tokenizer.from_pretrained('WeakTokenizer')
 
 tokenizer.add_special_tokens({
     "eos_token" : "</s>",
@@ -56,5 +56,5 @@ trainer = Trainer(
 )
 
 trainer.train()
-trainer.save_model("./GPyT")
+trainer.save_model("./WeakModel")
 

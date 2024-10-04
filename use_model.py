@@ -7,9 +7,9 @@ init(autoreset=True)
 
 paths = ["python_code_text.txt"]
 
-inp = 'print("Hello World!                 ")'
 
-tokenizer = GPT2Tokenizer.from_pretrained('tokenizerr')
+
+tokenizer = GPT2Tokenizer.from_pretrained('StrongTokenizer')
 
 tokenizer.add_special_tokens({
     "eos_token" : "</s>",
@@ -18,6 +18,8 @@ tokenizer.add_special_tokens({
     "unk_token" : "<unk>",
     "mask_token" : "<mask>",
 })
+
+inp = 'print("Hello World!")'
 
 t = tokenizer.encode(inp)
 
@@ -30,12 +32,10 @@ print(f"BOS token ID: {tokenizer.bos_token_id}")
 print(f"UNK token ID: {tokenizer.unk_token_id}")
 print(f"PAD token ID: {tokenizer.pad_token_id}")
 
-# Encode the input
 input_ids = tokenizer.encode(inp, return_tensors="pt")
 attention_mask = (input_ids != tokenizer.pad_token_id).long()
 
-
-model = GPT2LMHeadModel.from_pretrained("GPyTT")
+model = GPT2LMHeadModel.from_pretrained("StrongModel")
 
 while True:
     inp = input(">>> ")
