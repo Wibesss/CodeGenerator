@@ -1,13 +1,9 @@
-from tokenizers.implementations import ByteLevelBPETokenizer
-
-from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
 from colorama import Fore, init
 
 init(autoreset=True)
 
 paths = ["python_code_text.txt"]
-
-
 
 tokenizer = GPT2Tokenizer.from_pretrained('StrongTokenizer')
 

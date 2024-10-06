@@ -38,7 +38,7 @@ print(dataset)
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
 training_args = TrainingArguments(
-    output_dir = "./GPyT",
+    output_dir = "./WeakModel",
     overwrite_output_dir=True,
     num_train_epochs=1,
     per_device_eval_batch_size=2,
