@@ -86,8 +86,6 @@ for i in range(3):
     
     try:
         result = g.search_repositories(query)
-        print(Fore.YELLOW + f"Total repositories found: {result.totalCount}")
-
         for repository in result:
             process_repository(repository)
             print(Fore.CYAN + Style.BRIGHT + f"Current start time: {start_time_str}")

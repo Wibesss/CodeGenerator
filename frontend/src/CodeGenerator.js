@@ -76,9 +76,9 @@ function CodeGenerator() {
 
   return (
     <div className="flex flex-col h-full w-4/5 justify-center">
-      <h1 className="text-5xl text-purple-500 m-2 font-bold">Code Generator</h1>
+      <h1 className="text-5xl text-blue-500 m-2 font-bold">Code Generator</h1>
       <textarea
-        className="bg-slate-600 text-2xl p-2 font-semibold h-2/6 text-slate-300 resize-none"
+        className="bg-slate-600 text-2xl p-2 font-semibold h-1/4 text-slate-300 resize-none"
         value={inputCode}
         onChange={(e) => setInputCode(e.target.value)}
         rows="6"
@@ -105,9 +105,9 @@ function CodeGenerator() {
         </div>
       </div>
 
-      <h2 className="text-5xl text-purple-500 m-2 font-bold">Generated Code</h2>
+      <h2 className="text-5xl text-blue-500 m-2 font-bold">Generated Code</h2>
       <textarea
-        className="bg-slate-600 text-2xl p-2 font-semibold h-2/5 text-slate-300 resize-none"
+        className="bg-slate-600 text-2xl p-2 font-semibold h-2/4 text-slate-300 resize-none"
         value={loadingCode ? "Generating code..." : generatedCode}
         readOnly
         rows="6"

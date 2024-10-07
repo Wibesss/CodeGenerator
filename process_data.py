@@ -26,7 +26,6 @@ with open("python_code_text.txt", "a", encoding="utf-8") as output_file:
                 content = intput_file.read()
                 
             if len(content) > 1000000:
-                print(Fore.YELLOW + f"Skipping file: {fpath}, Length: {len(content)}")
                 continue
 
             print(Fore.BLUE + f"Processing file: {fpath}, Length: {len(content)}")

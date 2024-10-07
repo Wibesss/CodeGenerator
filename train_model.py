@@ -1,9 +1,5 @@
-from tokenizers.implementations import ByteLevelBPETokenizer
-from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer, DataCollatorForLanguageModeling,Trainer, TrainingArguments
+from transformers import GPT2Config, GPT2LMHeadModel, GPT2Tokenizer, DataCollatorForLanguageModeling, Trainer, TrainingArguments
 from datasets import load_dataset
-
-
-paths = ["python_code_text.txt"]
 
 tokenizer = GPT2Tokenizer.from_pretrained('WeakTokenizer')
 
@@ -26,21 +22,21 @@ config = GPT2Config(
 
 model = GPT2LMHeadModel(config)
 
+paths = ["python_code_text.txt"]
+
 dataset = load_dataset("text", data_files={"train": paths[0]})
-print(dataset)
 
 def encode(lines):
     return tokenizer(lines["text"], add_special_tokens=True, truncation=True, max_length=512)
 
 dataset = dataset.map(encode, batched=True, remove_columns=["text"])
-print(dataset)
 
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
 training_args = TrainingArguments(
     output_dir = "./WeakModel",
     overwrite_output_dir=True,
-    num_train_epochs=1,
+    num_train_epochs=2,
     per_device_eval_batch_size=2,
     save_steps=100,
     save_total_limit=2,

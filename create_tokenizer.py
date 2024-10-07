@@ -5,20 +5,20 @@ TRAN_BASE = True
 
 paths = ["python_code_text.txt"]
 
-if TRAN_BASE:
-    tokenizer = ByteLevelBPETokenizer()
-    
-    tokenizer.train(files = paths, vocab_size=52_000, min_frequency = 2 ,special_tokens = [
-        "<s>",
-        "<pad>",
-        "</s>",
-        "<unk>",
-        "<mask>",
-    ])
-    
-    tokenizer.save_model("WeakTokenizer")
+tokenizer = ByteLevelBPETokenizer()
 
-tokenizer = GPT2Tokenizer.from_pretrained('WeakTokenizer')
+tokenizer.train(files = paths, vocab_size=52_000, min_frequency = 2 ,special_tokens = [
+    "<pad>",
+    "<s>",
+    "</s>",
+    "<unk>",
+    "<mask>",
+])
+
+tokenizer.save_model("tokenizer")
+
+
+tokenizer = GPT2Tokenizer.from_pretrained('tokenizer')
 
 tokenizer.add_special_tokens({
     "eos_token" : "</s>",
